@@ -3,9 +3,9 @@ require.config({
 	paths: {
 		angular: '../../common/angularjs/angular.min',
 		angularRoute: '../../common/angularjs/angular-route.min',
+		browser: '../../common/js/browser',
 		ace: '../../common/ace/js/',
-		c: 'controllers',
-		modul: 'module'
+		c: 'controllers'
 	},
 	shim: {
 		angular: {
@@ -16,5 +16,5 @@ require.config({
 			exports: 'angularRoute'
 		}
 	},
-	deps: ['app']
+	deps: ['bootstrap', 'browser']
 });

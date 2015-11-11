@@ -1,11 +1,7 @@
-define([ 
-	'angular',
-	'angularRoute',
-	'route',
-	'app',
-	], function(angular){
-		'use strict';
-		angular.element(document).ready(function(){
-			angular.bootstrap(document, ['app']);
-		});
+'use strict';
+define(['angular', 'angularRoute', 'app', 'route'], 
+		function(angular){
+			angular.element(document).ready(function(){
+				angular.bootstrap(document, ['app']);
+			});
 	});
