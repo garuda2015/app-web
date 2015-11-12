@@ -1,20 +1,23 @@
 require.config({
 	baseUrl: 'js',
 	paths: {
+		angularJs: '../../common/angularjs',
 		angular: '../../common/angularjs/angular.min',
-		angularRoute: '../../common/angularjs/angular-route.min',
+		uiRouter: '../../common/angularjs/angular-ui-router.min',
 		browser: '../../common/js/browser',
 		ace: '../../common/ace/js/',
-		c: 'controllers'
+		c: 'controllers',
+		s: 'services'
 	},
 	shim: {
 		angular: {
 			exports: 'angular'
 		},
-		angularRoute: {
+		uiRouter: {
 			deps: ['angular'],
-			exports: 'angularRoute'
+			exports: 'uiRoute'
 		}
 	},
-	deps: ['bootstrap', 'browser']
+	deps: ['bootstrap', 'browser'],
+	urlArgs: "v" +  (new Date()).getTime()
 });

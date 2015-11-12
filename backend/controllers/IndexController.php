@@ -3,15 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use yii\web\Controller;
+use backend\base\AdminController;
 use common\models\User;
 
 
-class IndexController extends Controller {
+class IndexController extends AdminController {
 
 	public function actionIndex(){
 		$d = [
-			'user' => []
+			'isLogin' => true,
+			'name' => '陈战'
 		];
 		echo json_encode($d);
 	}

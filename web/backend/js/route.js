@@ -1,9 +1,10 @@
 'use strict';
 define(['app', 'require'], 
 	function(app, require){
-		app.config(function($locationProvider, $routeProvider){
+		app.config(function($locationProvider, $stateProvider){
 			$locationProvider.hashPrefix('!');
-			$routeProvider.when('/login', {
+			$stateProvider.state('login', {
+				url: '/login',
 				templateUrl: 'tpl/login.html',
 				resolve: {
 					load: loadController('c/LoginController')
