@@ -1,33 +1,26 @@
 'use strict';
-define(['app', 'require'], 
-	function(app, require){
-		app.controller('LoginController', function($rootScope, $scope, $http, UserService){
-			$rootScope.settings.title = '登陆';
+define(['app', 'browser'], 
+	function(app, browser){
+		app.register.controller('LoginController', function($rootScope, $scope, $http){
+			$rootScope.page.title = '登陆';
+			//主题包
 			$scope.themeObj = {
 				dark: {bodyClass: 'login-layout',appText: 'white',companyText: 'blue'},
 				light: {bodyClass: 'login-layout light-login',appText: 'gray',companyText: 'blue'},
 				blur:{bodyClass: 'login-layout blur-login',appText: 'white',companyText: 'light-blue'}
 			};
-			$scope.theme = {};
+			//主题切换
 			$scope.changeTheme = function(theme){
 					if(theme in $scope.themeObj){
 						$scope.theme = $scope.themeObj[theme];
-						$rootScope.settings.bodyClass = $scope.theme.bodyClass;
+						$rootScope.page.bClass = $scope.theme.bodyClass;
 					}
 				};
+			//设置当前主题
+			$scope.theme = {};
 			$scope.changeTheme('light');
-			//依赖
-			$scope.resolve = new Array();
-			//加载依赖，并执行核心代码
-			require($scope.resolve, function(){
-				$scope.user = {name: '', pwd: ''};
-				$scope.signup = function(){
-					$http.post('index.php?r')
-					.success(function(res){
-
-					})
-					.error(function(){});
-				}
-			});
+			$scope.signin = function(){
+				$rootScope.auth = {signin: true, username: '陈战'};
+			}
 		});
 });

@@ -22,15 +22,11 @@ abstract class AdminController extends Controller {
 		$this->user = $session->get('user');
 		if(!$this->user){
 			//未登陆
-			echo json_encode([
-				'signInfo' => [
-					'isLogin' => false, 
-					'user' => [
-						'name' => ''
-					]
-				]]);
+			echo json_encode(['signin' => false, 'username' => '']);
 			die();
-		} 
+		} else {
+
+		}
 	}
 
 }

@@ -21,3 +21,10 @@ require.config({
 	deps: ['bootstrap', 'browser'],
 	urlArgs: "v" +  (new Date()).getTime()
 });
+
+require(['browser'], function(browser){
+		//IE8及以下版本HTML5支持加载
+		if (browser.b == 'ie' && browser.bv < '9.0') {
+			require(['ace/html5shiv', 'ace/respond']);
+		}
+});

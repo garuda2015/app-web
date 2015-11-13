@@ -9,6 +9,10 @@ define(['app', 'require'],
 				resolve: {
 					load: loadController('c/LoginController')
 				}
+			})
+			.state('/', {
+				url: '/',
+				template: '<a href="#!login">HELLO WORLD</a>',
 			});
 		});
 		//加载Controller
