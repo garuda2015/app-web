@@ -9,8 +9,11 @@ use common\models\User;
 
 class IndexController extends AdminController {
 
+	public function actionIndex(){
 
-	public function signin(){
+	}
+
+	public function actionSignin(){
 		
 	}
 

@@ -1,28 +1,43 @@
 'use strict';
-define(['app'], 
-	function(app){
-		app.factory('AuthService', function($rootScope, $http, $location){
-			$rootScope.auth = {};
-			$http.post('index.php?r=index/index')
-			.success(function(res){
-				$rootScope.auth = res;
-				$rootScope.$watchCollection('auth', function(newVal, oldVal){
-					if(newVal.signin !== true || newVal.username == ""){
-						if($location.path() != '/login'){
-							$location.path('/login').replace();
-						}
+define(['app', 'constant'], 
+	function(app, constant){
+		app.factory('AuthService', function($rootScope, $http, $state, $q){
+			var to;
+			$rootScope.$on('$stateChangeStart', function(e, t, tp, f, fp){
+				if($rootScope.auth.signin === true && t.name == 'login'){
+					//登陆状态禁止进入登陆页面
+					e.preventDefault();
+				} else if(t.name != 'login' && ($rootScope.auth.signin !== true)){
+					//非登陆状态，禁止进入其他界面
+					to = t;
+					e.preventDefault();
+				} else {
+					to = t;
+				}
+			});
+			return {
+				authCheck: function(){
+					var d = $q.defer();
+					$rootScope.auth = {signin: false, username: ''};
+					$http.post(constant.authCheckUrl)
+					.success(function(res){
+						$rootScope.auth = res;
+						d.resolve($rootScope.auth);
+					})
+					.error(function(res){
+						d.reject('验证权限失败');
+					});
+					return d.promise;
+				},
+				to: function(){
+					if($rootScope.auth.signin !== true){
+						$state.go('login');
+					} else if(to.name == 'login'){
+						$state.go('home');
 					} else {
-						$location.path('/').replace();
+						$state.go(to.name);
 					}
-				});
-				$rootScope.$on('$stateChangeStart', function(e, t, tp, f, fp){
-					if($rootScope.auth.signin === true && t.name == 'login'){
-						e.preventDefault();
-					} else if(t.name != 'login' && ($rootScope.auth.signin !== true || $rootScope.auth.username =="")){
-						e.preventDefault();
-					}
-				});
-			})
-			return $rootScope.auth;
+				}
+			};
 		});
 });

@@ -22,11 +22,11 @@ abstract class AdminController extends Controller {
 		$this->user = $session->get('user');
 		if(!$this->user){
 			//未登陆
-			echo json_encode(['signin' => false, 'username' => '']);
-			die();
-		} else {
-
+			if(Yii::$app->requestedRoute != 'index/signin'){
+				//非登陆界面
+				echo json_encode(['signin' => false, 'username' => '']);
+				die();
+			}
 		}
 	}
-
 }

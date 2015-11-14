@@ -18,9 +18,13 @@ define(['app', 'browser'],
 				};
 			//设置当前主题
 			$scope.theme = {};
-			$scope.changeTheme('light');
+			$scope.changeTheme('blur');
+			$scope.user = {name: '', pwd: ''};
 			$scope.signin = function(){
-				$rootScope.auth = {signin: true, username: '陈战'};
+				$http.post('index.php?r=index/signin', $scope.user)
+				.success(function(res){
+
+				});
 			}
 		});
 });

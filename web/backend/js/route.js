@@ -1,7 +1,7 @@
 'use strict';
 define(['app', 'require'], 
 	function(app, require){
-		app.config(function($locationProvider, $stateProvider){
+		app.config(function($locationProvider, $stateProvider, $urlRouterProvider){
 			$locationProvider.hashPrefix('!');
 			$stateProvider.state('login', {
 				url: '/login',
@@ -10,18 +10,19 @@ define(['app', 'require'],
 					load: loadController('c/LoginController')
 				}
 			})
-			.state('/', {
+			.state('home', {
 				url: '/',
-				template: '<a href="#!login">HELLO WORLD</a>',
+				templateUrl: 'tpl/home.html'
 			});
+			$urlRouterProvider.otherwise('/');
 		});
 		//加载Controller
 		var loadController = function(controller){
 			return function($q, $rootScope){
 				var d= $q.defer();
 				require([controller], function(){
-					$rootScope.$apply(function (){
-						d.resolve();
+					$rootScope.$apply(function(){
+						d.resolve('SUCCESS');
 					});
 				});
 				return d.promise;
