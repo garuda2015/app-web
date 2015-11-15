@@ -3,8 +3,7 @@
 namespace backend\base;
 
 use Yii;
-use yii\web\Controller;
-use common\models\User;
+use common\core\Controller;
 
 
 abstract class AdminController extends Controller {

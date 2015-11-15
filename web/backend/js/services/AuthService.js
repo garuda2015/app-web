@@ -2,17 +2,19 @@
 define(['app', 'constant'], 
 	function(app, constant){
 		app.factory('AuthService', function($rootScope, $http, $state, $q){
+			var authCheck = false;
 			var to;
 			$rootScope.$on('$stateChangeStart', function(e, t, tp, f, fp){
-				if($rootScope.auth.signin === true && t.name == 'login'){
-					//登陆状态禁止进入登陆页面
-					e.preventDefault();
-				} else if(t.name != 'login' && ($rootScope.auth.signin !== true)){
-					//非登陆状态，禁止进入其他界面
+				if(!authCheck){
+					//授权检测前禁止去任何页面
 					to = t;
 					e.preventDefault();
-				} else {
-					to = t;
+				} else if($rootScope.auth.signin !== true && t.name != 'login'){
+					//非登陆状态不可去其他页面
+					e.preventDefault;
+				} else if($rootScope.auth.signin === true && t.name == 'login'){
+					//登陆状态禁止去登陆页面
+					e.preventDefault();
 				}
 			});
 			return {
@@ -21,10 +23,12 @@ define(['app', 'constant'],
 					$rootScope.auth = {signin: false, username: ''};
 					$http.post(constant.authCheckUrl)
 					.success(function(res){
+						authCheck = true;
 						$rootScope.auth = res;
 						d.resolve($rootScope.auth);
 					})
 					.error(function(res){
+						console.log(res);
 						d.reject('验证权限失败');
 					});
 					return d.promise;

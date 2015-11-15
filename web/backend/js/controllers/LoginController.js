@@ -23,7 +23,7 @@ define(['app', 'browser'],
 			$scope.signin = function(){
 				$http.post('index.php?r=index/signin', $scope.user)
 				.success(function(res){
-
+					
 				});
 			}
 		});
