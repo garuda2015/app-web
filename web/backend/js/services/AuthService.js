@@ -36,8 +36,10 @@ define(['app', 'constant'],
 				to: function(){
 					if($rootScope.auth.signin !== true){
 						$state.go('login');
-					} else if(to.name == 'login'){
-						$state.go('home');
+					} else if(to == undefined){
+						$state.go('admin.home');
+					} else if(to.name == 'login' || to.name == ""){
+						$state.go('admin.home');
 					} else {
 						$state.go(to.name);
 					}

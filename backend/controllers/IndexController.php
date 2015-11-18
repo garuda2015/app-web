@@ -10,7 +10,7 @@ use common\models\User;
 class IndexController extends AdminController {
 
 	public function actionIndex(){
-		$auth = ['signin' => true, 'username' => $this->user->name];
+		$auth = ['signin' => true, 'username' => $this->user['username']];
 		echo json_encode($auth);die();
 	}
 

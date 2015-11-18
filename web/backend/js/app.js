@@ -2,7 +2,7 @@
 define(['angular'], 
 		function(angular){
 			var app = angular.module('app', ['ui.router'])
-				.run(function($rootScope, AuthService, $location){
+				.run(function($rootScope, AuthService, $location, $state){
 					$rootScope.page = {title: '加载中，请稍候……', bClass: ''};
 					AuthService.authCheck().then(
 						function(success){

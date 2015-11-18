@@ -10,11 +10,28 @@ define(['app', 'require'],
 					load: loadController('c/LoginController')
 				}
 			})
-			.state('home', {
-				url: '/',
-				templateUrl: 'tpl/home.html'
+			.state('admin', {
+				abstract: true,
+				url: '',
+				views: {
+					'':{
+						templateUrl: 'tpl/main.html'
+					},
+					'navbar@':{
+						templateUrl: 'tpl/nav_bar.html'
+					},
+					'menu@':{
+						templateUrl: 'tpl/menu.html'
+					}
+				},
+				resolve: {
+					load: loadController('c/MainController')
+				}
+			})
+			.state('admin.home', {
+				url:'/home',
+				template: '<h2>home</h2>'
 			});
-			$urlRouterProvider.otherwise('/');
 		});
 		//加载Controller
 		var loadController = function(controller){
